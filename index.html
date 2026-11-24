@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>결 · SAKE CURATION — 사케 취향 큐레이션 시연 (가상 브랜드)</title>
+<meta name="description" content="취향과 음식, 예산을 따라 가상의 상품을 살펴보는 큐레이션 시연. 가상 상품·가격, 실제 구매 불가.">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<p class="demo-band" role="note">시연용 프로토타입 · 가상 브랜드·가상 상품·가상 가격 · 실제 판매·주문·결제 없음</p>
+
+<header class="site-header" id="top">
+  <a class="brand" href="#top"><span class="brand-mark">결</span><span class="brand-name">SAKE CURATION</span><small class="brand-tag">가상 브랜드</small></a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="메뉴 열기"><span></span><span></span></button>
+  <nav class="menu" id="menu" aria-label="주요 메뉴">
+    <ul class="gnb">
+      <li><a href="#collection">컬렉션</a></li>
+      <li><a href="#quiz">내 취향 찾기</a></li>
+      <li><a href="#story">큐레이션 이야기</a></li>
+    </ul>
+    <div class="mode-control" role="group" aria-labelledby="mode-label">
+      <span id="mode-label" class="mode-label">가격 모드</span>
+      <div class="segmented" id="mode-switch"></div>
+      <small class="mode-note">시연용 가격 모드 · 직원 인증 미구현</small>
+    </div>
+    <button class="menu-close" type="button">메뉴 닫기</button>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <p class="eyebrow">결 · SAKE CURATION <span class="sep">/</span> 가상 브랜드 시연</p>
+      <h1 id="hero-title" class="hero-title"><span class="line"><span>오늘의 취향에,</span></span><span class="line"><span>한 병의 발견.</span></span></h1>
+      <p class="hero-lead">취향과 음식, 예산을 따라 가상의 상품을 살펴보는 큐레이션 시연입니다.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#quiz">내 취향 찾아보기</a>
+        <a class="btn btn-ghost" href="#collection">전체 상품 보기</a>
+      </div>
+    </div>
+    <div class="hero-stage">
+      <canvas class="hero-canvas" aria-hidden="true"></canvas>
+      <svg class="hero-fallback" viewBox="0 0 320 560" role="img" aria-label="가상 사케 A 맑은 결 — 짙은 초록 유리병과 크림색 라벨 일러스트">
+        <defs>
+          <linearGradient id="gBody" x1="0" x2="1"><stop offset="0" stop-color="#0a2418"/><stop offset=".18" stop-color="#1c4a33"/><stop offset=".42" stop-color="#2f6b4c"/><stop offset=".55" stop-color="#1f5238"/><stop offset=".8" stop-color="#0d2d1e"/><stop offset="1" stop-color="#061a11"/></linearGradient>
+          <linearGradient id="gHi" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#e8f3ea" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+          <linearGradient id="gCap" x1="0" x2="1"><stop offset="0" stop-color="#4b351c"/><stop offset=".4" stop-color="#b08a52"/><stop offset=".6" stop-color="#8a683a"/><stop offset="1" stop-color="#3d2a14"/></linearGradient>
+          <linearGradient id="gLabel" x1="0" x2="1"><stop offset="0" stop-color="#d9cdb6"/><stop offset=".3" stop-color="#f3eadb"/><stop offset=".75" stop-color="#efe4d1"/><stop offset="1" stop-color="#cbbda3"/></linearGradient>
+          <radialGradient id="gShadow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+          <radialGradient id="gPed" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#b8925c" stop-opacity=".45"/><stop offset="1" stop-color="#b8925c" stop-opacity="0"/></radialGradient>
+        </defs>
+        <ellipse cx="160" cy="520" rx="150" ry="26" fill="url(#gPed)"/>
+        <ellipse cx="160" cy="520" rx="110" ry="14" fill="none" stroke="#e2cfa8" stroke-opacity=".25"/>
+        <ellipse cx="164" cy="516" rx="78" ry="12" fill="url(#gShadow)"/>
+        <path d="M146 52h28v-8h-28z M144 60q16-6 32 0v70q0 10 6 16 32 40 32 90v260q0 24-26 24h-56q-26 0-26-24V236q0-50 32-90 6-6 6-16z" fill="url(#gBody)"/>
+        <path d="M150 140v372" stroke="url(#gHi)" stroke-width="7" stroke-linecap="round" opacity=".9"/>
+        <path d="M206 250v230" stroke="#cfe6d6" stroke-opacity=".18" stroke-width="3" stroke-linecap="round"/>
+        <rect x="106" y="256" width="108" height="150" rx="2" fill="url(#gLabel)"/>
+        <text x="122" y="330" font-family="'Noto Serif KR','Apple SD Gothic Neo',serif" font-size="56" fill="#1d2a22">결</text>
+        <text x="182" y="300" font-family="'Noto Serif KR',serif" font-size="30" fill="#2d3b33">A</text>
+        <path d="M122 346h74" stroke="#9b7a4a" stroke-width="1.5"/>
+        <text x="122" y="370" font-family="'Noto Serif KR',serif" font-size="15" fill="#1d2a22">맑은 결</text>
+        <text x="122" y="392" font-family="Pretendard,sans-serif" font-size="12" letter-spacing="1.2" fill="#7a5f3c">FICTIONAL</text>
+        <rect x="142" y="34" width="36" height="30" rx="4" fill="url(#gCap)"/>
+        <rect x="140" y="62" width="40" height="20" fill="#5e452a"/>
+      </svg>
+      <p class="hero-note" aria-hidden="true">Find your note.</p>
+      <div class="annotation" id="hero-annotation"></div>
+      <p class="hero-fiction">FICTIONAL COLLECTION · 가상 상품</p>
+    </div>
+  </section>
+
+  <section class="quiz section" id="quiz" aria-labelledby="quiz-title">
+    <div class="section-head">
+      <p class="kicker">01 — 내 취향 찾기</p>
+      <h2 id="quiz-title">세 가지만 고르면, 오늘의 한 병</h2>
+      <p class="section-lead">예산 → 스타일 → 음식 순서로 고르면 규칙에 따라 최대 3개를 보여 드립니다.</p>
+    </div>
+    <div class="quiz-panel" id="quiz-panel"></div>
+    <p class="sr-only" aria-live="polite" id="quiz-live"></p>
+  </section>
+
+  <section class="collection section" id="collection" aria-labelledby="collection-title">
+    <div class="section-head">
+      <p class="kicker">02 — 컬렉션</p>
+      <h2 id="collection-title">다섯 가지 결</h2>
+      <p class="section-lead">가상 상품 다섯 종을 이름·태그로 찾아보세요. 가격은 선택한 가격 모드 하나로만 표시됩니다.</p>
+    </div>
+    <form class="filters" id="filters" autocomplete="off">
+      <label class="search"><span class="sr-only">상품 이름·태그 검색</span>
+        <input type="search" name="q" id="search" placeholder="이름 또는 태그 검색 (예: 산뜻, 구이)" autocomplete="off" maxlength="40" enterkeyhint="search">
+      </label>
+      <div class="chips" id="filter-style" role="group" aria-label="스타일 필터"></div>
+      <div class="chips" id="filter-food" role="group" aria-label="음식 필터"></div>
+    </form>
+    <p class="result-count" id="collection-count" aria-live="polite"></p>
+    <ul class="cards" id="cards"></ul>
+  </section>
+
+  <section class="story section" id="story" aria-labelledby="story-title">
+    <div class="story-visual" aria-hidden="true">
+      <svg viewBox="0 0 200 420" class="story-bottle">
+        <defs><linearGradient id="sBody" x1="0" x2="1"><stop offset="0" stop-color="#0a2418"/><stop offset=".3" stop-color="#2a6246"/><stop offset=".55" stop-color="#1c4a33"/><stop offset="1" stop-color="#061a11"/></linearGradient></defs>
+        <path d="M90 30q10-4 20 0v50q0 8 4 12 22 30 22 68v200q0 18-18 18H82q-18 0-18-18V160q0-38 22-68 4-4 4-12z" fill="url(#sBody)"/>
+        <path d="M86 90v270" stroke="#dcefe2" stroke-opacity=".5" stroke-width="4" stroke-linecap="round"/>
+        <rect x="70" y="190" width="60" height="84" fill="#efe4d1"/>
+        <text x="80" y="236" font-family="'Noto Serif KR',serif" font-size="30" fill="#1d2a22">결</text>
+        <rect x="92" y="12" width="16" height="22" rx="2" fill="#8a6a3e"/>
+      </svg>
+      <ol class="story-axes" id="story-axes"></ol>
+    </div>
+    <div class="story-copy">
+      <p class="kicker">03 — 큐레이션 이야기</p>
+      <h2 id="story-title">여섯 개의 축으로 읽는 한 병</h2>
+      <p>이 시연은 모든 가상 상품을 같은 여섯 축으로 적습니다. 단맛·드라이·산미·감칠맛·바디·향, 각 1에서 5까지.</p>
+      <p>추천은 사람의 감상이 아니라 규칙입니다. 예산 안의 판매 중 상품에서 스타일 일치 3점, 음식 일치 2점을 더해 순서를 정합니다. 점수가 없는 상품을 ‘취향 일치’라고 부르지 않습니다.</p>
+      <p class="story-foot">실제 제조사·산지·도수·용량은 다루지 않습니다. 표기되는 값은 모두 가상입니다.</p>
+    </div>
+  </section>
+
+  <section class="staff section" aria-labelledby="staff-title">
+    <details class="staff-panel">
+      <summary><span class="kicker">직원 개념 패널 · 샘플</span><span id="staff-title" class="staff-summary">전체 6종 재고·상태 보기 (읽기 전용)</span></summary>
+      <p class="staff-note">시연용 가격 모드 · 직원 인증 미구현 · 저장·동기화·주문·POS·QR 없음. 비노출 상품 F는 고객 컬렉션에 나타나지 않습니다.</p>
+      <div class="table-wrap"><table id="staff-table"></table></div>
+    </details>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p><strong>결 · SAKE CURATION</strong> — 가상 브랜드 시연. 상품·가격·태그·재고는 모두 가상이며 실제 구매·주문·결제·회원 기능이 없습니다.</p>
+  <p>상태는 브라우저 메모리에만 있으며 새로고침 시 초기화됩니다. 저장·전송·분석 스크립트 없음.</p>
+</footer>
+
+<dialog class="detail" id="detail" aria-labelledby="detail-title">
+  <article class="detail-body" id="detail-body"></article>
+</dialog>
+
+<script type="module" src="./app.mjs"></script>
+</body>
+</html>

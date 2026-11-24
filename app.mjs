@@ -20,6 +20,9 @@ const bottleGlyph = (p, cls = '') => `<svg class="glyph ${cls}" viewBox="0 0 60 
   <rect x="27" y="2" width="6" height="8" rx="1" class="glyph-cap"/></svg>`;
 const tagList = (p) => `<ul class="tags">${tagsOf(p).map((t) => `<li>${esc(t)}</li>`).join('')}</ul>`;
 const stockBadge = (p) => p.status === 'soldout' ? '<span class="badge badge-out">품절</span>' : `<span class="badge">재고 ${p.stock}</span>`;
+// 상품명 '가상 사케 D · 부드러운 결' → 접두(ID 포함)·표시명을 각각 nowrap 조각으로. 줄바꿈은 ' · ' 사이에서만 (320~390 고아 글자 방지).
+const nameHtml = (p) => { const i = p.name.indexOf(' · '); if (i < 0) return esc(p.name);
+  return `<span class="nowrap">${esc(p.name.slice(0, i))}</span> · <span class="nowrap">${esc(p.name.slice(i + 3))}</span>`; };
 const priceLine = (p) => `<p class="price">${won(priceOf(p, state.mode))} <small>${esc(modeLabel(state.mode))}</small></p>`;
 const choiceButtons = (list, value, name, extra = (o) => '') => list.map((o) =>
   `<button type="button" class="choice" role="radio" aria-checked="${value === o.key}" data-field="${name}" data-value="${esc(o.key)}">${esc(o.label)}${extra(o)}</button>`).join('');
@@ -32,8 +35,8 @@ function renderModeSwitch() {
 $('#mode-switch').addEventListener('click', (e) => {
   const b = e.target.closest('[data-mode]'); if (!b || b.dataset.mode === state.mode) return;
   state.mode = b.dataset.mode; renderAll();
-  // Rendering replaces the focused radio button; retain keyboard context.
-  if (header.classList.contains('menu-open')) $(`[data-mode="${state.mode}"]`)?.focus();
+  // Rendering replaces the clicked radio; restore focus to its replacement on every viewport (desktop too), not only the mobile menu.
+  $(`#mode-switch [data-mode="${state.mode}"]`)?.focus();
   announce(`가격 모드가 ${modeLabel(state.mode)}로 바뀌었습니다. 예산 조건과 결과를 다시 계산했습니다.`);
 });
 
@@ -133,7 +136,7 @@ function renderQuiz() {
   } else {
     const r = recommend(quizQuery(q, state.mode));
     const items = r.items.map(({ product: p, score, reasons }) => `<li class="result-card">
-        ${bottleGlyph(p)}<div class="result-main"><h4>${esc(p.name)}</h4>${tagList(p)}
+        ${bottleGlyph(p)}<div class="result-main"><h4>${nameHtml(p)}</h4>${tagList(p)}
         <ul class="reasons">${reasons.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
         ${priceLine(p)}${r.kind === 'match' ? `<p class="score">일치 점수 ${score}</p>` : ''}
         <button type="button" class="btn btn-ghost btn-sm" data-open="${p.id}">상세 보기</button></div></li>`).join('');
@@ -179,7 +182,7 @@ function renderCollection() {
   $('#cards').innerHTML = list.map((p) => `<li class="card ${p.status === 'soldout' ? 'is-out' : ''}">
     <button type="button" class="card-hit" data-open="${p.id}" aria-label="${esc(p.name)} 상세 보기">
       <figure class="card-figure">${bottleGlyph(p)}</figure>
-      <div class="card-body"><p class="card-id">${p.id}</p><h3>${esc(p.name)}</h3>${tagList(p)}
+      <div class="card-body"><p class="card-id">${p.id}</p><h3>${nameHtml(p)}</h3>${tagList(p)}
         <div class="card-foot">${priceLine(p)}${stockBadge(p)}</div></div>
     </button></li>`).join('');
 }
@@ -229,7 +232,7 @@ function detailBottle(p) {
 function renderDetail() {
   const p = state.openId && byId(state.openId); if (!p) return;
   detailBody.innerHTML = `<header class="detail-head"><p class="kicker">가상 상품 ${p.id} · ${esc(STATUS_LABEL[p.status])}</p>
-      <h2 id="detail-title">${esc(p.name)}</h2>${tagList(p)}
+      <h2 id="detail-title">${nameHtml(p)}</h2>${tagList(p)}
       <button type="button" class="dialog-close" data-close aria-label="닫기">×</button></header>
     <div class="detail-grid">
       <div class="detail-visual">${detailBottle(p)}</div>

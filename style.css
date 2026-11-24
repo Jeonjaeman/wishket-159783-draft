@@ -19,6 +19,7 @@ a { color: inherit; }
 button { font: inherit; color: inherit; cursor: pointer; }
 img, svg, canvas { display: block; max-width: 100%; }
 .won { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.nowrap { white-space: nowrap; } /* 한국어 어절 묶음: '오늘의 한 병'·상품명 조각 — 고아 글자 방지 */
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 .hero :focus-visible, .site-header :focus-visible { outline-color: #d9c69a; }
@@ -172,6 +173,7 @@ img, svg, canvas { display: block; max-width: 100%; }
 .result-main .price { margin-top: 12px; }
 .score { font-size: 12px; color: var(--ink-2); margin-top: 2px; }
 .result-main .btn { margin-top: 12px; }
+@media (max-width: 479.98px) { .result-card { grid-template-columns: 44px 1fr; gap: 12px; padding: 14px; } .result-card .glyph { height: 100px; } } /* 320: 이름 조각 '부드러운 결'이 한 줄에 */
 .empty { margin-top: 22px; padding: 24px; border: 1px dashed var(--line); border-radius: 8px; display: grid; gap: 16px; justify-items: start; }
 
 /* 컬렉션 */

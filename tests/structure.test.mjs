@@ -170,10 +170,38 @@ test('README: 실행법·규칙·제외 기능·라이선스·레퍼런스 출�
   assert.ok(!/탱탱소프트|PLANS|buzz:\/\/|인계서|HANDOFF/i.test(md), '내부 문서 경로 복사 금지');
 });
 
-test('mode rerender preserves menu focus; Escape is global to the open interaction', () => {
-  assert.match(app, /if \(header.classList.contains\('menu-open'\)\).*focus/);
+test('B1 회귀: 가격 모드 클릭 뒤 교체된 라디오로 포커스 복귀 — 데스크톱(1440/1366/1024)에서도, 메뉴 열림 조건 없이', () => {
+  const handler = app.match(/\$\('#mode-switch'\)\.addEventListener\('click', \(e\) => \{([\s\S]*?)\n\}\);/);
+  assert.ok(handler, '모드 전환 클릭 핸들러');
+  const body = handler[1];
+  assert.match(body, /renderAll\(\);/);
+  assert.match(body, /\$\(`#mode-switch \[data-mode="\$\{state\.mode\}"\]`\)\?\.focus\(\);/, '현재 모드의 교체 라디오로 focus');
+  assert.ok(!/menu-open/.test(body), '포커스 복귀가 header.menu-open에 묶이지 않음(데스크톱에서 body로 떨어지지 않음)');
+  assert.ok(body.indexOf('renderAll();') < body.indexOf('.focus()'), '다시 그린 뒤에 focus');
+  assert.ok(app.includes("state.mode = b.dataset.mode; renderAll();"), '영향 받는 컨트롤은 모두 state.mode에서 다시 계산');
+  // 모바일 메뉴 계약 유지: no-scroll · 포커스 트랩 · Escape
+  assert.ok(app.includes("document.body.classList.toggle('no-scroll', open)"));
   assert.match(app, /document.addEventListener\('keydown'/);
+  assert.match(app, /if \(e.key === 'Escape'\) \{ e.preventDefault\(\); setMenu\(false\); return; \}/);
   assert.match(app, /!menu.contains\(document.activeElement\)/);
+  assert.match(css, /body\.no-scroll \{ overflow: hidden; \}/);
+});
+
+test('B2·개선 회귀: 한국어 어절 묶음 — 퀴즈 제목 ‘오늘의 한 병’ nowrap, 상품명은 접두(ID)·표시명 조각으로만 줄바꿈, 320 결과 카드 축소', () => {
+  assert.match(css, /\.nowrap \{ white-space: nowrap; \}/, 'nowrap 유틸리티');
+  assert.ok(html.includes('<h2 id="quiz-title">세 가지만 고르면, <span class="nowrap">오늘의 한 병</span></h2>'), '퀴즈 제목: 앞 절은 줄바꿈 가능, ‘오늘의 한 병’은 한 덩이');
+  assert.ok(!/<span class="nowrap">세 가지만 고르면, 오늘의 한 병<\/span>/.test(html), '문장 전체를 nowrap으로 묶지 않음(320 넘침 방지)');
+  // 상품명 조각: core의 name 형식 '가상 사케 {ID} · {표시명}'을 ' · ' 기준으로 나눠 각 조각 nowrap
+  assert.match(core, /name: `가상 사케 \$\{id\} · \$\{short\}`/);
+  assert.match(app, /const nameHtml = \(p\) => \{ const i = p\.name\.indexOf\(' · '\);/);
+  assert.match(app, /<span class="nowrap">\$\{esc\(p\.name\.slice\(0, i\)\)\}<\/span> · <span class="nowrap">\$\{esc\(p\.name\.slice\(i \+ 3\)\)\}<\/span>/);
+  assert.ok(app.includes('<h4>${nameHtml(p)}</h4>'), '결과 카드 이름');
+  assert.ok(app.includes('<h3>${nameHtml(p)}</h3>'), '컬렉션 카드 이름');
+  assert.ok(app.includes('<h2 id="detail-title">${nameHtml(p)}</h2>'), '상세 제목');
+  assert.ok(!/<h4>\$\{esc\(p\.name\)\}<\/h4>|<h3>\$\{esc\(p\.name\)\}<\/h3>/.test(app), '이름 제목에 평문 출력 없음');
+  assert.ok(app.includes('aria-label="${esc(p.name)} 상세 보기"'), '접근 가능한 이름은 평문 그대로');
+  assert.match(css, /@media \(max-width: 479\.98px\) \{ \.result-card \{ grid-template-columns: 44px 1fr; gap: 12px; padding: 14px; \}/, '320 결과 카드: 글리프 열 축소로 이름 조각 한 줄 확보');
+  assert.match(css, /\.result-main h4 \{ font-size: 20px; \}/, '글자 크기 기준선 유지');
 });
 
 test('detail reuses the material-rich authored bottle with isolated SVG identifiers', () => {
